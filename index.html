@@ -364,7 +364,7 @@
       removeTyping();
       
       if (!res.ok) {
-        addMessage('Sorry, something went wrong. Please try again! 🙏', 'bot');
+        addMessage('if (!res.ok) {     console.error('Webhook HTTP error:', res.status);     addMessage(         'Request failed (HTTP ' + res.status + '). Please try again!',         'bot'     );     sendBtn.disabled = false;     inputEl.focus();     return; } 🙏', 'bot');
         return;
       }
 
