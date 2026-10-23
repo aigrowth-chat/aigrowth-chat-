@@ -362,11 +362,20 @@
       });
       
       removeTyping();
-      
       if (!res.ok) {
-        addMessage('if (!res.ok) {     console.error('Webhook HTTP error:', res.status);     addMessage(         'Request failed (HTTP ' + res.status + '). Please try again!',         'bot'     );     sendBtn.disabled = false;     inputEl.focus();     return; } 🙏', 'bot');
-        return;
-      }
+    const details = await res.text();
+    console.error('Webhook HTTP error:', res.status, details);
+
+    addMessage(
+        'Request failed (HTTP ' + res.status + '). Please try again.',
+        'bot'
+    );
+
+    sendBtn.disabled = false;
+    inputEl.focus();
+    return;
+}
+      
 
       const data = await res.json();
 
