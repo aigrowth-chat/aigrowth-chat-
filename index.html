@@ -360,6 +360,7 @@ const messagesEl = document.getElementById('messages');
           'Accept': 'application/json'
         },
         body: JSON.stringify({ 
+         history: conversationHistory,
           chatInput: text,
           message: text,
           text: text,
@@ -390,6 +391,10 @@ const messagesEl = document.getElementById('messages');
       else if (typeof data === 'string') reply = data;
       else reply = '✅ Got it! Let me process that for you.';
 
+     conversationHistory.push(
+  { role: 'user', content: text },
+  { role: 'assistant', content: reply }
+);
       // Clean up the response
       reply = reply.replace(/\\n\\n/g, '<br><br>').replace(/\\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
       addMessage(reply, 'bot');
