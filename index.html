@@ -310,6 +310,7 @@
   const messagesEl = document.getElementById('messages');
   const inputEl = document.getElementById('input');
   const sendBtn = document.getElementById('sendBtn');
+  const conversationHistory = [];
 
   function getTime() {
     return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -341,6 +342,9 @@
     const text = inputEl.value.trim();
     if (!text) return;
 
+    // Add to history
+    conversationHistory.push({ role: 'user', content: text });
+    
     addMessage(text, 'user');
     inputEl.value = '';
     inputEl.style.height = 'auto';
@@ -360,7 +364,8 @@
           text: text,
           input: text,
           sessionId: sessionId,
-          action: 'sendMessage'
+          action: 'sendMessage',
+          history: conversationHistory
         })
       });
       
@@ -387,6 +392,8 @@
       // Clean up the response
       reply = reply.replace(/\\n\\n/g, '<br><br>').replace(/\\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
       addMessage(reply, 'bot');
+      // Save bot response to history
+      conversationHistory.push({ role: 'assistant', content: reply });
     } catch (err) {
       removeTyping();
       console.error('Error:', err);
