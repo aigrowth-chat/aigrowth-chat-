@@ -307,10 +307,11 @@
 <script>
   const WEBHOOK_URL = 'https://primary-production-1740.up.railway.app/webhook/4e20bdd0-8457-4138-a8fc-51344be8f6ac';
   const sessionId = 'session_' + Math.random().toString(36).substr(2, 9);
-  const messagesEl = document.getElementById('messages');
+  const conversationHistory = [];
+const messagesEl = document.getElementById('messages');
   const inputEl = document.getElementById('input');
   const sendBtn = document.getElementById('sendBtn');
-  const conversationHistory = [];
+  
 
   function getTime() {
     return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
