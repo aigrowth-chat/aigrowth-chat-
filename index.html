@@ -303,8 +303,9 @@
 </div>
 
 <div class="footer">Powered by <span>AIGrowth Hub</span> · AI Automation</div>
+
 <script>
-const WEBHOOK_URL = 'https://primary-production-1740.up.railway.app/webhook/4e20bdd0-8457-4138-a8fc-51344be8f6ac';
+  const WEBHOOK_URL = 'https://primary-production-1740.up.railway.app/webhook/4e20bdd0-8457-4138-a8fc-51344be8f6ac';
   const sessionId = 'session_' + Math.random().toString(36).substr(2, 9);
   const messagesEl = document.getElementById('messages');
   const inputEl = document.getElementById('input');
@@ -354,27 +355,20 @@ const WEBHOOK_URL = 'https://primary-production-1740.up.railway.app/webhook/4e20
           'Accept': 'application/json'
         },
         body: JSON.stringify({ 
-          chatInput: text, 
+          chatInput: text,
+          message: text,
+          input: text,
           sessionId: sessionId,
           action: 'sendMessage'
         })
       });
       
       removeTyping();
-      if (!res.ok) {
-    const details = await res.text();
-    console.error('Webhook HTTP error:', res.status, details);
-
-    addMessage(
-        'Request failed (HTTP ' + res.status + '). Please try again.',
-        'bot'
-    );
-
-    sendBtn.disabled = false;
-    inputEl.focus();
-    return;
-}
       
+      if (!res.ok) {
+        addMessage('Sorry, something went wrong. Please try again! 🙏', 'bot');
+        return;
+      }
 
       const data = await res.json();
 
